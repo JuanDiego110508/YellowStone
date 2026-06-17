@@ -3,58 +3,64 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yellowstone information center</title>
+    <title>Movie Explorer</title>
 
-    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="./css/styles.css">
+    <link rel="manifest" href="./manifest.json">
 </head>
 <body>
 
     <header>
-        <h1>Yellowstone information center</h1>
-        <p>Explora informacion sobre la serie Yellowstone</p>
+        <h1>Movie Explorer</h1>
+        <p>Explora informacion sobre series y películas</p>
     </header>
 
     <main>
-        <section id="menu-section">
-            <h2>Consultas disponibles</h2>
+        <section>
 
-            <div class="buttons-container">
+            <h2>Buscar contenido</h2>
 
-                <button id="general-btn">
-                    Informacion General
+            <div class="search-container">
+
+                <select id="keyword-select"></select>
+
+                <button id="search-btn">
+                    Buscar
                 </button>
-                <button id="cast-btn">
-                    Reparto
-                </button>
-                <button id="production-btn">
-                    Produccion
-                </button>
-                <button id="ratings-btn">
-                    Calificaciones
-                </button>
-                <button id="awards-btn">
-                    Premios
-                </button>
-                <button id="plot-btn">
-                    Sinopsis
-                </button>
-                <button id="clear-btn">
-                    Limpiar
+            </div>
+
+        </section>
+
+        <section>
+
+            <h2>Resultados encontrados</h2>
+
+            <div class="search-container">
+
+                <select id="movie-select">
+                    <option>
+                        Seleccione un resultado
+                    </option>
+                </select>
+
+                <button id="details-btn">
+                    Ver Información
                 </button>
             </div>
         </section>
 
-        <section id="result-section">
-            <h2>Resultado</h2>
+        <section>
 
-            <div id="result-container">
-                <p>Selecciona una opcion para ver la informacion</p>
-            </div>
+        <h2>Información</h2>
+
+            <div id="result-container"></div>
+
         </section>
+
     </main>
 
     <footer>
-        <p>OMDb API Project - Yellowstone</p>
+        <p>OMDb API Project - Movie Explorer</p>
     </footer>
 
     <script src="./js/config.js"></script>

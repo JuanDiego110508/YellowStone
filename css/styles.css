@@ -179,3 +179,17 @@ footer {
         width: 200px;
     }
 }
+
+.search-container {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+select {
+    padding: 12px;
+    border-radius: 8px;
+    border: none;
+    min-width: 250px;
+}

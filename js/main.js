@@ -1,25 +1,86 @@
-let yellowstoneData = null;
+const keywordSelect = document.getElementById("keyword-select");
 
-const generalButton = document.getElementById("general-btn");
-const castButton = document.getElementById("cast-btn");
-const productionButton = document.getElementById("production-btn");
-const ratingsButton = document.getElementById("ratings-btn");
-const awardsButton = document.getElementById("awards-btn");
-const plotButton = document.getElementById("plot-btn");
-const clearButton = document.getElementById("clear-btn");
+const movieSelect = document.getElementById("movie-select");
 
-document.addEventListener("DOMContentLoaded", cargarAplicacion);
+const searchButton = document.getElementById("search-btn");
 
-async function cargarAplicacion() {
-    yellowstoneData = await obtenerYellowstone();
-    console.log(yellowstoneData);
-    limpiarResultado();
+const detailsButton = document.getElementById("details-btn");
 
-    generalButton.addEventListener("click",() => mostrarInformacionGeneral(yellowstoneData));
-    castButton.addEventListener("click",() => mostrarReparto(yellowstoneData));
-    productionButton.addEventListener("click",() => mostrarProduccion(yellowstoneData));
-    ratingsButton.addEventListener("click",() => mostrarCalificaciones(yellowstoneData));
-    awardsButton.addEventListener("click",() => mostrarPremios(yellowstoneData));
-    plotButton.addEventListener("click",() => mostrarSinopsis(yellowstoneData));
-    clearButton.addEventListener("click", limpiarResultado);
+let resultados = [];
+
+document.addEventListener(
+    "DOMContentLoaded",
+    iniciarAplicacion
+);
+
+function iniciarAplicacion() {
+
+    cargarKeywords();
+    mostrarBienvenida();
+
+    searchButton.addEventListener("click",realizarBusqueda);
+    detailsButton.addEventListener("click",mostrarInformacion);
+}
+
+function cargarKeywords() {
+
+    const keywords = [
+        "Yellow",
+        "Marvel",
+        "Batman",
+        "Star",
+        "Fast",
+        "Avengers",
+        "Harry",
+        "Spider",
+        "Mission",
+        "Transformers"
+    ];
+
+    keywordSelect.innerHTML = "";
+    keywords.forEach(keyword => {
+        keywordSelect.innerHTML += `<option value="${keyword}">
+                ${keyword}
+                </option>`;
+    });
+}
+
+async function realizarBusqueda() {
+    const palabra = keywordSelect.value;
+    const respuesta = await buscarPeliculas(palabra);
+
+        if (!respuesta || !respuesta.Search) {
+            alert("No se encontraron resultados");
+            return;
+        }
+
+    resultados = respuesta.Search;
+    cargarResultados();
+}
+
+function cargarResultados() {
+    movieSelect.innerHTML = "";
+
+    resultados.forEach(item => {
+        movieSelect.innerHTML += `<option value="${item.imdbID}">
+            ${item.Title} (${item.Year})
+            </option>`;
+    });
+}
+
+async function mostrarInformacion() {
+
+    const imdbID = movieSelect.value;
+        if (!imdbID) {
+        alert("Seleccione un resultado");
+        return;
+    }
+
+    const detalle = await obtenerDetalle(imdbID);
+    mostrarDetalle(detalle);
+
+}
+
+if ("serviceWorker" in navigator) {
+    window.addEventListener("load", () => {navigator.serviceWorker.register("./service-worker.js");});
 }
