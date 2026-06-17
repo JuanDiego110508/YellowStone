@@ -25,7 +25,7 @@ function iniciarAplicacion() {
 function cargarKeywords() {
 
     const keywords = [
-        "Yellow",
+        "Yellowstone",
         "Marvel",
         "Batman",
         "Star",
